@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const title = 'Age Discrimination Damages Calculator (ADEA) | agediscriminationcalc.com';
+const description = 'Estimate potential damages for age discrimination claims under the ADEA. Covers back pay, liquidated damages, front pay, and attorney fees. Free, informational.';
+---
+<BaseLayout title={title} description={description}>
+  <h1>Age Discrimination Damages Calculator</h1>
+  <p><em>Reviewed by Riley Chen (RC), Employment &amp; Civil Rights Practice Lead. Updated May 2026.</em></p>
+  <p>The Age Discrimination in Employment Act (ADEA) protects workers 40 and older from discrimination in hiring, firing, pay, promotions, and other terms of employment. Unlike Title VII, the ADEA provides for liquidated damages &mdash; an automatic doubling of back pay &mdash; when the violation is willful. This calculator estimates potential recovery for ADEA claims.</p>
+  <h2>Run the estimate</h2>
+  <form id="calc" novalidate>
+    <label for="salary">Annual salary (USD)</label>
+    <input id="salary" type="number" value="75000" min="0" />
+    <label for="action">Type of adverse action</label>
+    <select id="action">
+      <option value="termination">Wrongful termination</option>
+      <option value="demotion">Demotion or pay cut</option>
+      <option value="failure-hire">Failure to hire or promote</option>
+      <option value="forced-resign">Constructive discharge / forced resignation</option>
+    </select>
+    <label for="months">Months of lost employment</label>
+    <input id="months" type="number" value="9" min="0" max="120" />
+    <label for="willful">Was the violation willful?</label>
+    <select id="willful">
+      <option value="no">No / unclear</option>
+      <option value="yes">Yes — employer knew or recklessly disregarded ADEA</option>
+    </select>
+    <label for="found-work">Have you found comparable replacement work?</label>
+    <select id="found-work">
+      <option value="no">Not yet</option>
+      <option value="partial">Partial replacement income</option>
+      <option value="yes">Yes — comparable position found</option>
+    </select>
+    <button type="submit">Estimate damages</button>
+  </form>
+  <p id="result" aria-live="polite"></p>
+  <h2>How ADEA damages work</h2>
+  <p>The ADEA provides for back pay (lost wages and benefits from the violation through resolution), front pay (future lost earnings if reinstatement isn&rsquo;t feasible), and &mdash; critically &mdash; liquidated damages equal to the back pay amount when the violation was willful. This doubling provision has no counterpart in Title VII and significantly increases ADEA recovery for willful violations.</p>
+  <p>Unlike Title VII, the ADEA does not cap compensatory or punitive damages &mdash; but it also does not provide them in the traditional sense. Liquidated damages serve as the punitive mechanism and are tied directly to back pay. Attorney fees are separately recoverable under 29 U.S.C. &sect; 626(b).</p>
+  <h2>The willfulness standard</h2>
+  <p>Willfulness is established when the employer knew or showed reckless disregard for whether its conduct violated the ADEA (<em>Hazen Paper Co. v. Biggins</em>, 507 U.S. 604 (1993)). Evidence of willfulness: age-related comments by decision-makers, replacing older employees with younger ones across a pattern, documented preference for youth in hiring materials, or prior ADEA complaints against the same manager.</p>
+  <h2>Where to learn more</h2>
+  <p>See <a href="/guides/how-adea-damages-work">how ADEA damages work</a>, <a href="/guides/types-of-age-discrimination">types of age discrimination</a>, <a href="/guides/what-to-do-after-age-discrimination">what to do after age discrimination</a>, and <a href="/guides/common-adea-misconceptions">common ADEA misconceptions</a>.</p>
+  <script>
+    document.getElementById('calc').addEventListener('submit', e => {
+      e.preventDefault();
+      const salary = parseFloat(document.getElementById('salary').value)||75000;
+      const months = parseFloat(document.getElementById('months').value)||0;
+      const willful = document.getElementById('willful').value==='yes';
+      const foundWork = document.getElementById('found-work').value;
+      const action = document.getElementById('action').value;
+      const mitigation = foundWork==='yes' ? 0.7 : (foundWork==='partial' ? 0.4 : 0);
+      const backPay = (salary/12)*months*(1-mitigation);
+      const liquidated = willful ? backPay : 0;
+      const frontPay = (action==='termination'||action==='forced-resign') ? salary*(foundWork==='yes'?0.25:0.75) : 0;
+      const total = backPay+liquidated+frontPay;
+      const fmt = n=>'$'+Math.round(n).toLocaleString();
+      document.getElementById('result').innerHTML =
+        `<strong>Estimated range: ${fmt(total*0.7)} &ndash; ${fmt(total*1.3)}</strong><br>Back pay: ${fmt(backPay)} &bull; Liquidated damages: ${fmt(liquidated)} &bull; Front pay: ${fmt(frontPay)}<br><em>Attorney fees recoverable separately. Consult an employment attorney for case-specific analysis.</em>`;
+    });
+  </script>
+</BaseLayout>
