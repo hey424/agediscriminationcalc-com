@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const title = 'Methodology | agediscriminationcalc.com';
+const description = 'How the ADEA damages calculator works: back pay, liquidated damages, front pay, and mitigation.';
+---
+<BaseLayout title={title} description={description}>
+  <h1>Methodology &mdash; How We Estimate ADEA Damages</h1>
+  <p><em>Reviewed by Riley Chen (RC), Employment &amp; Civil Rights Practice Lead. Updated May 2026.</em></p>
+  <h2>Back pay</h2>
+  <p>Annual salary &divide; 12 &times; months unemployed &times; (1 &minus; mitigation factor). The mitigation factor reflects earnings from replacement work: 0 if none found, 40% reduction if partial, 70% if comparable work found. Courts require plaintiffs to make reasonable efforts to mitigate by seeking comparable employment.</p>
+  <h2>Liquidated damages</h2>
+  <p>Equal to back pay when the violation is willful (29 U.S.C. &sect; 626(b)). Willfulness means the employer knew or recklessly disregarded that its conduct violated the ADEA. The plaintiff bears the burden of proving willfulness. When willfulness is found, damages double automatically &mdash; no further showing of harm required.</p>
+  <h2>Front pay</h2>
+  <p>Estimated at 75% of annual salary (or 25% if comparable work found) for termination and constructive discharge claims where reinstatement is infeasible. Actual front pay periods vary from months to years depending on age, job market, and circumstances.</p>
+  <h2>Not included</h2>
+  <p>Attorney fees (separately recoverable), emotional distress damages (not available under ADEA, unlike Title VII), and punitive damages (not available under ADEA &mdash; liquidated damages serve this function).</p>
+</BaseLayout>
