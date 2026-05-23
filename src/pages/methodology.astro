@@ -1,17 +1,42 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 const title = 'Methodology | agediscriminationcalc.com';
-const description = 'How the ADEA damages calculator works: back pay, liquidated damages, front pay, and mitigation.';
+const description = 'How the ADEA damages calculator works: back pay, liquidated damages, front pay, mitigation factors, and what is not included.';
 ---
 <BaseLayout title={title} description={description}>
   <h1>Methodology &mdash; How We Estimate ADEA Damages</h1>
-  <p><em>Reviewed by Riley Chen (RC), Employment &amp; Civil Rights Practice Lead. Updated May 2026.</em></p>
-  <h2>Back pay</h2>
-  <p>Annual salary &divide; 12 &times; months unemployed &times; (1 &minus; mitigation factor). The mitigation factor reflects earnings from replacement work: 0 if none found, 40% reduction if partial, 70% if comparable work found. Courts require plaintiffs to make reasonable efforts to mitigate by seeking comparable employment.</p>
-  <h2>Liquidated damages</h2>
-  <p>Equal to back pay when the violation is willful (29 U.S.C. &sect; 626(b)). Willfulness means the employer knew or recklessly disregarded that its conduct violated the ADEA. The plaintiff bears the burden of proving willfulness. When willfulness is found, damages double automatically &mdash; no further showing of harm required.</p>
-  <h2>Front pay</h2>
-  <p>Estimated at 75% of annual salary (or 25% if comparable work found) for termination and constructive discharge claims where reinstatement is infeasible. Actual front pay periods vary from months to years depending on age, job market, and circumstances.</p>
-  <h2>Not included</h2>
-  <p>Attorney fees (separately recoverable), emotional distress damages (not available under ADEA, unlike Title VII), and punitive damages (not available under ADEA &mdash; liquidated damages serve this function).</p>
+  <p><em>Reviewed by Tess Holloway (TH), Editor-in-Chief &mdash; Employment Law &amp; Age Discrimination Practice. Updated May 2026.</em></p>
+
+  <p>This page documents the specific inputs, formulas, and assumptions the ADEA damages calculator uses. Transparency about the model&rsquo;s mechanics helps you interpret the output and understand where your specific facts may produce different results than the model predicts. All values are educational estimates grounded in the ADEA&rsquo;s statutory damage framework under 29 U.S.C. &sect;&sect; 621&ndash;634.</p>
+
+  <h2>Step 1: Back Pay</h2>
+  <p>Back pay is the foundational element of ADEA damages. The statute (29 U.S.C. &sect; 626(b)) incorporates the Fair Labor Standards Act&rsquo;s remedies framework, which provides for recovery of wages, salary, and benefits that would have been received but for the discriminatory act. Back pay accrues from the date of the adverse action through the date of judgment or settlement.</p>
+  <p>The calculator computes back pay as: (annual salary &divide; 12) &times; months of lost employment &times; (1 &minus; mitigation factor). The mitigation factor reflects the ADEA plaintiff&rsquo;s duty to make reasonable efforts to find comparable replacement employment. The mitigation factors applied: no replacement work found = 0% reduction; partial replacement income = 40% reduction (reflecting partial wage offset from lower-paying or part-time work); comparable work found = 70% reduction (reflecting near-full offset with some residual difference in pay, benefits, or seniority).</p>
+  <p>The duty to mitigate is an affirmative defense — the employer bears the burden of proving failure to mitigate, not the plaintiff. A plaintiff who makes reasonable but unsuccessful job search efforts has not failed to mitigate even if they remain unemployed for a long period.</p>
+  <p>Formula: <code>backPay = (salary / 12) × months × (1 − mitigation)</code></p>
+  <p>Back pay for non-termination adverse actions (demotion, failure to hire/promote): actual back pay in these cases is limited to the salary differential — the difference between what the employee was paid and what they should have been paid. The calculator uses the termination formula for all action types, which overstates damages for demotion and failure-to-hire cases. For these case types, treat the output as an upper bound rather than a center estimate.</p>
+
+  <h2>Step 2: Liquidated Damages</h2>
+  <p>The ADEA&rsquo;s liquidated damages provision at 29 U.S.C. &sect; 626(b) provides for an additional amount equal to the back pay award when the violation is &ldquo;willful.&rdquo; Willfulness means the employer knew or showed reckless disregard for whether its conduct violated the ADEA — the standard established in <em>Hazen Paper Co. v. Biggins</em>, 507 U.S. 604 (1993).</p>
+  <p>When the user selects &ldquo;willful,&rdquo; the calculator applies full liquidated damages equal to back pay, automatically doubling the core award. When willfulness is not established (or unclear), liquidated damages are zero. The binary approach in the calculator reflects the ADEA&rsquo;s binary structure — unlike the FMLA, which has a good faith defense that allows partial liquidated damages, the ADEA provides liquidated damages only when willfulness is proven.</p>
+  <p>Formula: <code>liquidated = if willful then backPay else 0</code></p>
+  <p>Note: liquidated damages are not available for front pay — they apply only to the back pay component of the award. Courts uniformly hold that liquidated damages cannot be applied to front pay, which is a prospective equitable remedy rather than a retrospective legal damages award.</p>
+
+  <h2>Step 3: Front Pay</h2>
+  <p>Front pay is awarded when reinstatement is not feasible — the position was eliminated, the relationship is too hostile, or the employee is near retirement age and reinstatement is not an economically realistic remedy. Front pay covers projected future lost earnings from the date of judgment forward.</p>
+  <p>The calculator estimates front pay at 75% of annual salary when comparable work has not been found (reflecting approximately nine months of future income loss) and 25% when comparable work has been found (reflecting residual differential for employees who found lower-paying replacement work). Front pay is only modeled for termination and constructive discharge cases; it is not modeled for demotion or failure-to-hire claims, which do not involve complete job loss.</p>
+  <p>Formula: <code>frontPay = if (termination or forced-resign) then salary × (foundWork === 'yes' ? 0.25 : 0.75) else 0</code></p>
+  <p>Actual front pay awards depend heavily on the plaintiff&rsquo;s age, years to expected retirement, job market conditions, and the judge&rsquo;s assessment of how long recovery of comparable employment will take. Older plaintiffs in specialized fields with thin job markets receive larger front pay awards; younger plaintiffs in healthy job markets with transferable skills receive smaller ones.</p>
+
+  <h2>Step 4: Output Range</h2>
+  <p>The total of backPay + liquidated + frontPay is presented as a range of 70%&ndash;130% of the base estimate. This range reflects the genuine uncertainty in ADEA outcomes — mitigation speed, jury assessment of willfulness, front pay period, and benefits valuation — that the model cannot capture. It communicates that the estimate is an approximation of the center of a distribution, not a point prediction.</p>
+
+  <h2>What the Model Does Not Include</h2>
+  <p>Attorney fees: recoverable by the prevailing plaintiff under 29 U.S.C. &sect; 626(b) and can be substantial — particularly in complex, prolonged litigation. The calculator excludes attorney fees because they are calculated after resolution and do not reduce the plaintiff&rsquo;s net recovery (they are paid separately by the defendant).</p>
+  <p>Benefits: health insurance premiums paid by the employee during the period of lost employment, retirement contributions foregone, and the value of other lost benefits are compensable but require case-specific valuation.</p>
+  <p>Interest: back pay awards accrue interest from the date of the violation. The calculator uses simple back pay without interest.</p>
+  <p>Emotional distress and punitive damages: not available under the ADEA. Liquidated damages serve the punitive function. State age discrimination laws may provide emotional distress damages; the calculator addresses only federal ADEA claims.</p>
+  <p>Severance offsets: some courts reduce back pay by severance amounts received from the employer. This varies by jurisdiction and the specific terms of the severance arrangement.</p>
+
+  <p>Return to the <a href="/">calculator</a>, see <a href="/guides/how-adea-damages-work">how ADEA damages work</a>, or read the <a href="/faq">FAQ</a>.</p>
 </BaseLayout>
