@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import LeadCapture from '../components/LeadCapture.astro';
 const title = 'Age Discrimination Damages Calculator (ADEA) | agediscriminationcalc.com';
 const description = 'Estimate potential damages for age discrimination claims under the ADEA. Covers back pay, liquidated damages, front pay, and attorney fees. Free, informational.';
 ---
@@ -33,7 +34,10 @@ const description = 'Estimate potential damages for age discrimination claims un
     </select>
     <button type="submit">Estimate damages</button>
   </form>
-  <p id="result" aria-live="polite"></p>
+  
+
+  <LeadCapture caseType="age_discrimination" caseTypeLabel="Age Discrimination" />
+<p id="result" aria-live="polite"></p>
   <h2>How ADEA damages work</h2>
   <p>The ADEA provides for back pay (lost wages and benefits from the violation through resolution), front pay (future lost earnings if reinstatement isn&rsquo;t feasible), and &mdash; critically &mdash; liquidated damages equal to the back pay amount when the violation was willful. This doubling provision has no counterpart in Title VII and significantly increases ADEA recovery for willful violations.</p>
   <p>Unlike Title VII, the ADEA does not cap compensatory or punitive damages &mdash; but it also does not provide them in the traditional sense. Liquidated damages serve as the punitive mechanism and are tied directly to back pay. Attorney fees are separately recoverable under 29 U.S.C. &sect; 626(b).</p>
@@ -42,7 +46,7 @@ const description = 'Estimate potential damages for age discrimination claims un
   <h2>Understanding your estimate</h2>
   <p>The calculator applies the ADEA&rsquo;s statutory damage framework: back pay adjusted for mitigation earnings, liquidated damages when willfulness is found, and a front pay estimate for termination and constructive discharge cases where comparable work has not been found. The range output (70%&ndash;130% of the base estimate) reflects uncertainty in how quickly replacement work is found, how a jury assesses willfulness, and how a judge calculates front pay. The calculator does not include attorney fees, which are separately recoverable and can be substantial. Consult an employment attorney for a case-specific evaluation.</p>
   <h2>Where to learn more</h2>
-  <p>See <a href="/guides/how-adea-damages-work">how ADEA damages work</a>, <a href="/guides/types-of-age-discrimination">types of age discrimination</a>, <a href="/guides/what-to-do-after-age-discrimination">what to do after age discrimination</a>, and <a href="/guides/common-adea-misconceptions">common ADEA misconceptions</a>. The <a href="/faq">FAQ</a> covers EEOC filing deadlines, severance waiver requirements, and the but-for causation standard.</p>
+  <p>See <a href="/guides/how-adea-damages-work/">how ADEA damages work</a>, <a href="/guides/types-of-age-discrimination/">types of age discrimination</a>, <a href="/guides/what-to-do-after-age-discrimination/">what to do after age discrimination</a>, and <a href="/guides/common-adea-misconceptions/">common ADEA misconceptions</a>. The <a href="/faq/">FAQ</a> covers EEOC filing deadlines, severance waiver requirements, and the but-for causation standard.</p>
   <script>
     document.getElementById('calc').addEventListener('submit', e => {
       e.preventDefault();
