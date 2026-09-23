@@ -2,11 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LeadCapture from '../components/LeadCapture.astro';
 const title = 'Age Discrimination Damages Calculator (ADEA) | agediscriminationcalc.com';
-const description = 'Estimate potential damages for age discrimination claims under the ADEA. Covers back pay, liquidated damages, front pay, and attorney fees. Free, informational.';
+const description = 'ADEA damages calculator: estimate back pay, front pay, and liquidated damages for age discrimination. Worked examples, deadlines, and severance waiver rules. Free.';
 ---
 <BaseLayout title={title} description={description}>
   <h1>Age Discrimination Damages Calculator</h1>
-  <p><em>Reviewed by our editorial team. Updated May 2026.</em></p>
+  <p><em>Published by The Click Lab Agency LLC. Last reviewed September 2026. Not legal advice.</em></p>
   <p>The Age Discrimination in Employment Act (ADEA) protects workers 40 and older from discrimination in hiring, firing, pay, promotions, and other terms of employment. Unlike Title VII, the ADEA provides for liquidated damages &mdash; an automatic doubling of back pay &mdash; when the violation is willful. This calculator estimates potential recovery for ADEA claims based on your inputs — it is an educational tool, not legal advice.</p>
   <h2>Run the estimate</h2>
   <form id="calc" novalidate>
@@ -34,19 +34,52 @@ const description = 'Estimate potential damages for age discrimination claims un
     </select>
     <button type="submit">Estimate damages</button>
   </form>
-  
-
-  <LeadCapture caseType="age_discrimination" caseTypeLabel="Age Discrimination" />
-<p id="result" aria-live="polite"></p>
+  <p id="result" aria-live="polite"></p>
   <h2>How ADEA damages work</h2>
   <p>The ADEA provides for back pay (lost wages and benefits from the violation through resolution), front pay (future lost earnings if reinstatement isn&rsquo;t feasible), and &mdash; critically &mdash; liquidated damages equal to the back pay amount when the violation was willful. This doubling provision has no counterpart in Title VII and significantly increases ADEA recovery for willful violations.</p>
-  <p>Unlike Title VII, the ADEA does not cap compensatory or punitive damages &mdash; but it also does not provide them in the traditional sense. Liquidated damages serve as the punitive mechanism and are tied directly to back pay. Attorney fees are separately recoverable under 29 U.S.C. &sect; 626(b).</p>
+  <p>The ADEA does not allow compensatory damages for emotional distress or punitive damages at all, so there is nothing for a cap to limit. Liquidated damages serve as the punitive mechanism and are tied directly to back pay; claims for emotional distress have to come from a state age discrimination law. Attorney fees are separately recoverable under 29 U.S.C. &sect; 626(b).</p>
   <h2>The willfulness standard</h2>
   <p>Willfulness is established when the employer knew or showed reckless disregard for whether its conduct violated the ADEA (<em>Hazen Paper Co. v. Biggins</em>, 507 U.S. 604 (1993)). Evidence of willfulness: age-related comments by decision-makers, replacing older employees with younger ones across a pattern, documented preference for youth in hiring materials, or prior ADEA complaints against the same manager. Willfulness doubles the back pay award automatically — the court has no discretion once the jury finds it.</p>
   <h2>Understanding your estimate</h2>
   <p>The calculator applies the ADEA&rsquo;s statutory damage framework: back pay adjusted for mitigation earnings, liquidated damages when willfulness is found, and a front pay estimate for termination and constructive discharge cases where comparable work has not been found. The range output (70%&ndash;130% of the base estimate) reflects uncertainty in how quickly replacement work is found, how a jury assesses willfulness, and how a judge calculates front pay. The calculator does not include attorney fees, which are separately recoverable and can be substantial. Consult an employment attorney for a case-specific evaluation.</p>
+    <h2>ADEA rules at a glance</h2>
+  <div style="overflow-x:auto">
+  <table>
+    <tbody>
+      <tr><th>Who is protected</th><td>Employees and job applicants age 40 and older</td></tr>
+      <tr><th>Covered employers</th><td>Private employers with 20 or more employees; state and local governments; employment agencies and labor organizations</td></tr>
+      <tr><th>What you must prove</th><td>That age was the &ldquo;but-for&rdquo; cause of the decision, not merely one factor among several (<em>Gross v. FBL Financial Services</em>, 557 U.S. 167 (2009))</td></tr>
+      <tr><th>What you can recover</th><td>Back pay, front pay or reinstatement, attorney fees; liquidated damages equal to back pay if the violation was willful</td></tr>
+      <tr><th>Not recoverable</th><td>Emotional distress and punitive damages (state laws may allow them)</td></tr>
+      <tr><th>Deadline</th><td>EEOC charge within 180 days, or 300 days where a state agency also enforces age discrimination law. You may sue 60 days after filing the charge, and must sue within 90 days of receiving an EEOC notice that it has closed the charge.</td></tr>
+      <tr><th>Severance releases</th><td>A waiver of ADEA claims is valid only if it meets the Older Workers Benefit Protection Act: written in plain language, refers to the ADEA, advises you in writing to consult a lawyer, gives you 21 days to consider (45 in a group layoff, with age data on who was selected), and 7 days to revoke after signing.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Worked examples</h2>
+  <p>These examples use round numbers so you can check them against the calculator.</p>
+
+  <h3>Example 1 &mdash; Willful termination</h3>
+  <p>A 61-year-old sales manager earning $75,000 is fired and replaced by a 35-year-old after his director says in a meeting that the team needs &ldquo;younger energy.&rdquo; He is out of work for 10 months and then finds a comparable job. Back pay is 10 &times; $6,250 = $62,500. A jury that finds the violation willful triggers liquidated damages in the same amount, for $125,000 plus attorney fees. Nothing is added for emotional distress under the ADEA.</p>
+
+  <h3>Example 2 &mdash; Not willful, lower-paying new job</h3>
+  <p>A 55-year-old engineer earning $100,000 is laid off in a reduction in force that fell mostly on older workers. She is out of work 6 months ($50,000), then takes a job at $85,000; the case resolves 12 months later, adding the $15,000 difference. Back pay: $65,000. The jury finds age discrimination but not willfulness, so there are no liquidated damages. The court may add front pay for a period to cover the continuing $15,000-a-year gap.</p>
+
+  <h3>Example 3 &mdash; The severance release that does not hold</h3>
+  <p>A 58-year-old is laid off with 30 others and offered $20,000 in severance if he signs a release within 7 days. Because this is a group layoff, the Older Workers Benefit Protection Act required 45 days to consider it and a written list of the ages of those selected and not selected. With neither, the release does not waive his ADEA claim. He also does not have to hand back the severance before suing (<em>Oubre v. Entergy Operations</em>, 522 U.S. 422 (1998)), though a court may later offset it against any award.</p>
+
   <h2>Where to learn more</h2>
   <p>See <a href="/guides/how-adea-damages-work/">how ADEA damages work</a>, <a href="/guides/types-of-age-discrimination/">types of age discrimination</a>, <a href="/guides/what-to-do-after-age-discrimination/">what to do after age discrimination</a>, and <a href="/guides/common-adea-misconceptions/">common ADEA misconceptions</a>. The <a href="/faq/">FAQ</a> covers EEOC filing deadlines, severance waiver requirements, and the but-for causation standard.</p>
+
+  <h2>What this calculator does not do</h2>
+  <p>It does not decide whether age was the but-for cause of the decision, which is the hardest part of most ADEA cases. Its mitigation percentages and front pay figures (25% or 75% of a year&rsquo;s salary) are simplifying assumptions chosen by the publisher, not rules of law, and it applies the termination formula to demotion and failure-to-hire claims, which overstates those. It does not add interest, lost benefits, or severance offsets, and it does not model state age discrimination laws, several of which allow emotional distress and punitive damages and cover smaller employers. Treat the result as an order-of-magnitude estimate.</p>
+
+  <h2>Where to get help</h2>
+  <p>File a charge of age discrimination with the U.S. Equal Employment Opportunity Commission (EEOC) through its online portal or by phone at 1-800-669-4000, or with your state fair employment agency; filing is free and does not require a lawyer, but the 180- or 300-day deadline is strict. If you have been handed a severance agreement with a release, you have at least 21 days to consider it, and that is a good time to have it reviewed. Employment attorneys often take strong ADEA cases on contingency because the statute awards fees to a prevailing employee. If you would like The Click Lab to pass your details to an attorney in its network, the optional form below does that; it is a disclosed referral product, and our <a href="/privacy/">privacy policy</a> explains exactly what is shared.</p>
+
+  <LeadCapture caseType="age_discrimination" caseTypeLabel="Age Discrimination" />
+
   <script>
     document.getElementById('calc').addEventListener('submit', e => {
       e.preventDefault();
